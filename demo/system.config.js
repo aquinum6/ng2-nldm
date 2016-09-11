@@ -12,6 +12,7 @@
         map: {
             // our app is within the app folder
             app: './demo',
+            'src': './src',
             // angular bundles
             '@angular/core': 'npm:@angular/core/bundles/core.umd.js',
             '@angular/common': 'npm:@angular/common/bundles/common.umd.js',
@@ -28,6 +29,10 @@
         packages: {
             app: {
                 main: './main.js',
+                defaultExtension: 'js'
+            },
+            src: {
+                main: './index.js',
                 defaultExtension: 'js'
             },
             rxjs: {

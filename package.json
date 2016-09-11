@@ -4,6 +4,9 @@
   "description": "Angular 2 Native Like Drawer Menu",
   "main": "index.js",
   "scripts": {
+    "start": "tsc && concurrently \"npm run tsc:w\" \"npm run lite\" ",
+    "demo": "npm run lite",
+    "postinstall": "typings install && npm run tsc",
     "lite": "lite-server",
     "tsc:w": "tsc -w",
     "test": "test",
@@ -32,6 +35,7 @@
     "@angular/platform-webworker": "2.0.0-rc.6",
     "@angular/platform-webworker-dynamic": "2.0.0-rc.6",
     "@angular/router": "3.0.0-rc.2",
+    "concurrently": "2.2.0",
     "gulp": "3.9.1",
     "jasmine": "2.5.1",
     "karma": "1.3.0",
