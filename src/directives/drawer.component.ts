@@ -3,6 +3,7 @@ import { DomSanitizer } from '@angular/platform-browser';
 import { DrawerService } from './drawer.service';
 import { Subject } from 'rxjs/Subject';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
+import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/merge';
 import 'rxjs/add/operator/debounceTime';
@@ -63,7 +64,7 @@ export class NativeDrawer implements OnDestroy{
     private _drawer$: Subject<Event>;
     private _position$: BehaviorSubject<number>;
 
-    private _cloak$: BehaviorSubject<boolean>;
+    private _cloak$: Observable<boolean>;
 
     constructor(private __drawerService: DrawerService, private __sanitizer: DomSanitizer){
 
