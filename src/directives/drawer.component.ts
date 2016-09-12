@@ -1,17 +1,8 @@
-import { Component, ChangeDetectionStrategy, trigger, state, style, transition, animate } from '@angular/core';
+import { Component, ChangeDetectionStrategy, trigger, style, transition, animate, Input, OnDestroy } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 import { DrawerService } from './drawer.service';
-import { Observable } from 'rxjs/Rx'; //TODO: this is not proper import for rxjs!
 import { Subject } from 'rxjs/Subject';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
-import 'rxjs/add/operator/filter';
-import 'rxjs/add/operator/map';
-import 'rxjs/add/operator/merge';
-import 'rxjs/add/operator/do';
-import 'rxjs/add/operator/mergeMap';
-import 'rxjs/add/operator/take';
-import 'rxjs/add/operator/combineLatest';
-import 'rxjs/add/operator/delay';
 
 @Component({
     moduleId: module.id,
@@ -29,95 +20,31 @@ import 'rxjs/add/operator/delay';
     ],
     changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class NativeDrawer {
+export class NativeDrawer implements OnDestroy{
+
+    @Input() set width(_width: number){
+
+        //TODO: allow % and px (px just in case)
+        this.__drawerService.width = _width;
+    }
 
     //TODO: make sure that only one instance of drawer is active at given time
-    //TODO: deactivate "second" event. example: if movement is done by handler deactivate drawer. Device can catch second event during motion and it will broke movement
 
-    private drawerWidth: number = 300;
-    private inmotion: boolean = false;
+    private _width: number;
+    private _active$: BehaviorSubject<boolean>;
 
-    private handlerRx$: Subject<Event> = new Subject<Event>();
-    private drawerRx$: Subject<Event> = new Subject<Event>();
-    private position$: BehaviorSubject<number> = new BehaviorSubject<number>(0);
-    private force$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+    private _handler$: Subject<Event>;
+    private _drawer$: Subject<Event>;
+    private _position$: BehaviorSubject<number>;
 
-    //Position of start point
-    private start$: Observable<number> =
-        this.handlerRx$
-            .filter((ev: any) => ev.type === 'start')
-            //.do((ev) => this.inmotion = true)
-            .map((ev: any) => ev.ev.center.x - ev.ev.target.getBoundingClientRect().left)
-            .merge(
-                //Drawer Event start stream
-                this.drawerRx$
-                    .filter((ev: any) => ev.type === 'start')
-                    .map((ev: any) => ev.ev.center.x - this.drawerWidth));
+    constructor(private __drawerService: DrawerService, private __sanitizer: DomSanitizer){
 
-    private end$: Observable<boolean> =
-        this.handlerRx$
-            .merge(this.drawerRx$)
-            .filter((ev: any) => ev.type === 'end')
-            .do((ev) => this.inmotion = false)
-            .do((ev: any) => ev.ev.preventDefault())
-            .mergeMap(() => new BehaviorSubject((fn: any) =>
-                this.force$
-                    .last()
-                    .filter(e => e)
-                    .subscribe(fn)))
-            .mergeMap(() => this.position$.take(1)
-                .map(pos => pos > this.drawerWidth/2));
+        this._handler$ = __drawerService.handler$;
+        this._drawer$ = __drawerService.drawer$;
+        this._position$ = __drawerService.position$;
 
-    constructor(__drawerService: DrawerService, private __sanitizer: DomSanitizer){
-
-        Observable.combineLatest(
-            this.start$, this.drawerRx$
-                .merge(this.handlerRx$)
-                .filter((ev: any) => ev.type === 'move'))
-            .do((ev) => this.inmotion = true)
-            .map((val: any) => {
-                let [start, ev] = val;
-                return {
-                    pos: ev.ev.center.x - start,
-                    isFinal: ev.ev.isFinal,
-                    lor: ev.ev.type //TODO: add velocity
-                }
-            })
-            .subscribe(ev => {
-                //console.log(ev);
-                this.position$.next(ev.pos > this.drawerWidth ? this.drawerWidth : ev.pos < 0 ? 0 : ev.pos);
-                if(ev.isFinal){
-                    if(ev.lor === 'panleft'){
-                        this.close();
-                    } else {
-                        this.open();
-                    }
-                    this.force$.next(false);
-                } else {
-                    this.force$.next(true);
-                }
-            });
-
-        //TODO: is invoked also if isFinal true need to be changed
-        this.end$
-            .subscribe(bigger => {
-                //console.log(bigger);
-                if(bigger){
-                    this.open();
-                } else {
-                    this.close();
-                }
-                this.force$.next(false);
-            });
-
-    }
-
-    open(){
-        this.position$.next(this.drawerWidth);
-    }
-
-    close(){
-        this.position$.next(0);
+        this._width = __drawerService.width;
+        this._active$ = __drawerService.active$;
     }
 
     styleSanitize(val) {
@@ -125,7 +52,11 @@ export class NativeDrawer {
     }
 
     getOpacity(pos){
-        let op: number = (pos / this.drawerWidth).toFixed(2);
+        let op: number = (pos / this._width).toFixed(2);
         return op < 1 ? op : 1;
+    }
+
+    ngOnDestroy(): void {
+        this.__drawerService.reset();
     }
 }
