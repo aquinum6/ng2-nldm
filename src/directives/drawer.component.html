@@ -1,4 +1,4 @@
-<div class="nldm-pane">
+<div class="nldm-pane" [class.inmotion]="inmotion">
 
     <div class="nldm-handler"
          (panstart)="handlerRx$.next({type:'start',ev:$event})"
@@ -18,6 +18,8 @@
     </div>
 
     <div class="nldm-overall"
+         (click)="close()"
+         [@overall]="'in'"
          [style.opacity]="getOpacity(position$ | async)"
          *ngIf="(position$ | async) > 0"></div>
 </div>

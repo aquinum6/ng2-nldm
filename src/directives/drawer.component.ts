@@ -1,4 +1,4 @@
-import { Component, ChangeDetectionStrategy } from '@angular/core';
+import { Component, ChangeDetectionStrategy, trigger, state, style, transition, animate } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 import { DrawerService } from './drawer.service';
 import { Observable } from 'rxjs/Rx'; //TODO: this is not proper import for rxjs!
@@ -11,17 +11,31 @@ import 'rxjs/add/operator/do';
 import 'rxjs/add/operator/mergeMap';
 import 'rxjs/add/operator/take';
 import 'rxjs/add/operator/combineLatest';
+import 'rxjs/add/operator/delay';
 
 @Component({
     moduleId: module.id,
     selector: 'native-drawer',
     templateUrl: './drawer.component.html',
     styleUrls: ['./drawer.component.css'],
+    animations: [
+        trigger('overall', [
+            transition('* => void', [
+                animate('0.3s', style({
+                    opacity: '0'
+                }))
+            ])
+        ])
+    ],
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class NativeDrawer {
 
-    private drawerWidth = 300;
+    //TODO: make sure that only one instance of drawer is active at given time
+    //TODO: deactivate "second" event. example: if movement is done by handler deactivate drawer. Device can catch second event during motion and it will broke movement
+
+    private drawerWidth: number = 300;
+    private inmotion: boolean = false;
 
     private handlerRx$: Subject<Event> = new Subject<Event>();
     private drawerRx$: Subject<Event> = new Subject<Event>();
@@ -32,6 +46,7 @@ export class NativeDrawer {
     private start$: Observable<number> =
         this.handlerRx$
             .filter((ev: any) => ev.type === 'start')
+            //.do((ev) => this.inmotion = true)
             .map((ev: any) => ev.ev.center.x - ev.ev.target.getBoundingClientRect().left)
             .merge(
                 //Drawer Event start stream
@@ -43,6 +58,7 @@ export class NativeDrawer {
         this.handlerRx$
             .merge(this.drawerRx$)
             .filter((ev: any) => ev.type === 'end')
+            .do((ev) => this.inmotion = false)
             .do((ev: any) => ev.ev.preventDefault())
             .mergeMap(() => new BehaviorSubject((fn: any) =>
                 this.force$
@@ -58,6 +74,7 @@ export class NativeDrawer {
             this.start$, this.drawerRx$
                 .merge(this.handlerRx$)
                 .filter((ev: any) => ev.type === 'move'))
+            .do((ev) => this.inmotion = true)
             .map((val: any) => {
                 let [start, ev] = val;
                 return {
@@ -92,7 +109,6 @@ export class NativeDrawer {
                 }
                 this.force$.next(false);
             });
-
 
     }
 

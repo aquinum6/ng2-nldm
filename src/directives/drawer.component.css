@@ -1,3 +1,5 @@
+/* move css to scss */
+
 .nldm-handler{
     position: fixed;
     top: 0;
@@ -5,7 +7,8 @@
     height: 100%;
     width: 10px;
     z-index: 10000;
-    background-color: blue;
+    background-color: blue; /* TODO: remove for dist */
+    transition: transform .3s;
 }
 
 .nldm-drawer{
@@ -15,9 +18,10 @@
     left: 0;
     height: 100%;
     width: 300px;
-    background-color: red;
+    background-color: red; /* TODO: remove for dist */
     transform: translate(-100%, 0) translateZ(0);
     z-index: 9999;
+    transition: transform .3s;
 }
 .nldm-overall{
     position: fixed;
@@ -25,7 +29,15 @@
     left: 0;
     right: 0;
     bottom: 0;
-    background-color: rgba(0,0,0,.75);
+    background-color: rgba(0,0,0,.63);
     z-index: 9998;
     transition: opacity .3s;
+}
+
+.nldm-pane.inmotion .nldm-overall{
+    transition: opacity 0s;
+}
+
+.nldm-pane.inmotion .nldm-drawer,.nldm-pane.inmotion .nldm-handler{
+    transition: transform 0s;
 }
