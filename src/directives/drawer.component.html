@@ -1,4 +1,4 @@
-<div class="nldm-pane" [class.inmotion]="_active$ | async">
+<div class="nldm-pane" [class.inmotion]="(_active$ | async) || (_cloak$ | async)">
 
     <div class="nldm-handler"
          (panstart)="_handler$.next({type:'start',ev:$event})"

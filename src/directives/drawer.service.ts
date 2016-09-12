@@ -111,6 +111,7 @@ export class DrawerService {
     }
 
     set width(val: number){
+        this.close();
         this._drawerWidth = val;
         this._width$.next(val);
     }

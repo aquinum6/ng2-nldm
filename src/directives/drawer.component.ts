@@ -3,6 +3,9 @@ import { DomSanitizer } from '@angular/platform-browser';
 import { DrawerService } from './drawer.service';
 import { Subject } from 'rxjs/Subject';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
+import 'rxjs/add/operator/map';
+import 'rxjs/add/operator/merge';
+import 'rxjs/add/operator/debounceTime';
 
 @Component({
     moduleId: module.id,
@@ -45,7 +48,6 @@ export class NativeDrawer implements OnDestroy{
 
     @HostListener('window:resize', ['$event'])
     onResize (event) {
-        this.__drawerService.close();
         this._window$.next(event.target.innerWidth);
     }
 
@@ -61,6 +63,8 @@ export class NativeDrawer implements OnDestroy{
     private _drawer$: Subject<Event>;
     private _position$: BehaviorSubject<number>;
 
+    private _cloak$: BehaviorSubject<boolean>;
+
     constructor(private __drawerService: DrawerService, private __sanitizer: DomSanitizer){
 
         this._handler$ = __drawerService.handler$;
@@ -69,6 +73,13 @@ export class NativeDrawer implements OnDestroy{
 
         this._width$ = __drawerService.width$;
         this._active$ = __drawerService.active$;
+
+        this._cloak$ = __drawerService.width$
+            .map(() => true)
+            .merge(__drawerService.width$
+                .debounceTime(350)
+                .map(() => false));
+
     }
 
     styleSanitize(val) {
