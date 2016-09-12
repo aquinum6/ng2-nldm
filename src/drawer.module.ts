@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { DrawerService } from './directives/service';
-import { NativeDrawer } from './directives/main';
+import { DrawerService } from './directives/drawer.service';
+import { NativeDrawer } from './directives/drawer.component';
 
 @NgModule({
     imports: [ CommonModule ],
@@ -9,4 +9,4 @@ import { NativeDrawer } from './directives/main';
     exports: [ NativeDrawer ],
     providers: [ DrawerService ]
 })
-export class DrawerModule {}
+export class DrawerModule { }

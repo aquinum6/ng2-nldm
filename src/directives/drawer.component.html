@@ -1,0 +1,23 @@
+<div class="nldm-pane">
+
+    <div class="nldm-handler"
+         (panstart)="handlerRx$.next({type:'start',ev:$event})"
+         (panleft)="handlerRx$.next({type:'move',ev:$event})"
+         (panright)="handlerRx$.next({type:'move',ev:$event})"
+         (panend)="handlerRx$.next({type:'end',ev:$event})"
+         [style.transform]="styleSanitize(position$ | async)"></div>
+
+    <div class="nldm-drawer"
+         (panstart)="drawerRx$.next({type:'start',ev:$event})"
+         (panleft)="drawerRx$.next({type:'move',ev:$event})"
+         (panright)="drawerRx$.next({type:'move',ev:$event})"
+         (panend)="drawerRx$.next({type:'end',ev:$event})"
+         [style.transform]="styleSanitize((position$ | async) - drawerWidth)">
+        Drawer
+        <content></content>
+    </div>
+
+    <div class="nldm-overall">
+        Overall
+    </div>
+</div>

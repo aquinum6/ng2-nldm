@@ -1,2 +1,2 @@
-export { DrawerModule } from './drawer';
-export { DrawerService } from './directives/service';
+export { DrawerModule } from './drawer.module';
+export { DrawerService } from './directives/drawer.service';
