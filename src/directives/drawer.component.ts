@@ -1,4 +1,4 @@
-import { Component, ChangeDetectionStrategy, trigger, style, transition, animate, Input, OnDestroy } from '@angular/core';
+import { Component, ChangeDetectionStrategy, trigger, style, transition, animate, Input, OnDestroy, HostListener } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 import { DrawerService } from './drawer.service';
 import { Subject } from 'rxjs/Subject';
@@ -22,15 +22,39 @@ import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 })
 export class NativeDrawer implements OnDestroy{
 
-    @Input() set width(_width: number){
+    @Input() set width(_width: number | string){
 
-        //TODO: allow % and px (px just in case)
-        this.__drawerService.width = _width;
+        if(typeof _width === 'string'){
+
+            if(_width[_width.length - 1] === '%') {
+
+                this._window$.subscribe(width => {
+                    this.__drawerService.width =
+                        Math.floor(width * parseInt(_width.slice(0, -1)) / 100);
+                });
+
+            } else {
+                this.__drawerService.width =
+                    parseInt(_width.slice(-2) === 'px' ? _width.slice(0, -2) : _width);
+            }
+
+        } else {
+            this.__drawerService.width = _width;
+        }
+    }
+
+    @HostListener('window:resize', ['$event'])
+    onResize (event) {
+        this.__drawerService.close();
+        this._window$.next(event.target.innerWidth);
     }
 
     //TODO: make sure that only one instance of drawer is active at given time
 
-    private _width: number;
+    //TODO: window.innerWidth might be not working properly with Angular Universal
+    private _window$: BehaviorSubject<number> = new BehaviorSubject<number>(window.innerWidth);
+
+    private _width$: BehaviorSubject<number>;
     private _active$: BehaviorSubject<boolean>;
 
     private _handler$: Subject<Event>;
@@ -43,7 +67,7 @@ export class NativeDrawer implements OnDestroy{
         this._drawer$ = __drawerService.drawer$;
         this._position$ = __drawerService.position$;
 
-        this._width = __drawerService.width;
+        this._width$ = __drawerService.width$;
         this._active$ = __drawerService.active$;
     }
 
@@ -52,8 +76,8 @@ export class NativeDrawer implements OnDestroy{
     }
 
     getOpacity(pos){
-        let op: number = (pos / this._width).toFixed(2);
-        return op < 1 ? op : 1;
+        let op: string = pos.toFixed(2);
+        return parseFloat(op) < 1 ? op : '1';
     }
 
     ngOnDestroy(): void {

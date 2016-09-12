@@ -12,14 +12,14 @@
          (panleft)="_drawer$.next({type:'move',ev:$event})"
          (panright)="_drawer$.next({type:'move',ev:$event})"
          (panend)="_drawer$.next({type:'end',ev:$event})"
-         [style.transform]="styleSanitize((_position$ | async) - _width)"
-         [style.width]="_width + 'px'">
+         [style.transform]="styleSanitize((_position$ | async) - (_width$ | async))"
+         [style.width]="(_width$ | async) + 'px'">
         <ng-content></ng-content>
     </div>
 
     <div class="nldm-overall"
          (click)="__drawerService.close()"
          [@overall]="'in'"
-         [style.opacity]="getOpacity(_position$ | async)"
+         [style.opacity]="getOpacity((_position$ | async) / (_width$ | async))"
          *ngIf="(_position$ | async) > 0"></div>
 </div>

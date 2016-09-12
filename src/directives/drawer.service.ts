@@ -15,6 +15,7 @@ import 'rxjs/add/operator/delay';
 export class DrawerService {
 
     private _drawerWidth: number = 300;
+    private _width$: BehaviorSubject<number> = new BehaviorSubject<number>(this._drawerWidth);
     private _touched$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
 
     private _handlerRx$: Subject<Event> = new Subject<Event>();
@@ -105,12 +106,13 @@ export class DrawerService {
         return this._drawerRx$
     }
 
-    get width(){
-        return this._drawerWidth;
+    get width$(){
+        return this._width$;
     }
 
     set width(val: number){
         this._drawerWidth = val;
+        this._width$.next(val);
     }
 
     get active$(){
