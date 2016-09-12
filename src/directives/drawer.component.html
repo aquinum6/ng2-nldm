@@ -17,7 +17,7 @@
         <content></content>
     </div>
 
-    <div class="nldm-overall">
-        Overall
-    </div>
+    <div class="nldm-overall"
+         [style.opacity]="getOpacity(position$ | async)"
+         *ngIf="(position$ | async) > 0"></div>
 </div>

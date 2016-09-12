@@ -2,23 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="ef8aefee-062f-4e26-acd0-17be3d546087" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/directives/drawer.component.css" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/directives/drawer.component.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/directives/drawer.component.ts" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/directives/main.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/directives/main.js.map" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/directives/main.ts" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/directives/service.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/directives/service.js.map" afterPath="" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/directives/service.ts" afterPath="$PROJECT_DIR$/src/directives/drawer.service.ts" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/drawer.ts" afterPath="$PROJECT_DIR$/src/drawer.module.ts" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gitignore" afterPath="$PROJECT_DIR$/.gitignore" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/demo/app.component.ts" afterPath="$PROJECT_DIR$/demo/app.component.ts" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/demo/index.html" afterPath="$PROJECT_DIR$/demo/index.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/demo/system.config.js" afterPath="$PROJECT_DIR$/demo/system.config.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/package.json" afterPath="$PROJECT_DIR$/package.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/index.ts" afterPath="$PROJECT_DIR$/src/index.ts" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/directives/drawer.component.css" afterPath="$PROJECT_DIR$/src/directives/drawer.component.css" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/directives/drawer.component.html" afterPath="$PROJECT_DIR$/src/directives/drawer.component.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/directives/drawer.component.ts" afterPath="$PROJECT_DIR$/src/directives/drawer.component.ts" />
     </list>
     <ignored path="ng2-nldm.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -43,8 +30,8 @@
             <file leaf-file-name="m.manager.ts" pinned="false" current-in-tab="true">
               <entry file="file://$USER_HOME$/Desktop/untitled folder 2/untitled folder 3/dotetsoftworks/public/ui/m.manager.ts">
                 <provider selected="true" editor-type-id="text-editor">
-                  <state relative-caret-position="130">
-                    <caret line="138" column="44" selection-start-line="138" selection-start-column="44" selection-end-line="138" selection-end-column="44" />
+                  <state relative-caret-position="465">
+                    <caret line="73" column="29" selection-start-line="73" selection-start-column="29" selection-end-line="73" selection-end-column="29" />
                     <folding />
                   </state>
                 </provider>
@@ -63,8 +50,8 @@
             <file leaf-file-name="m.drawer.system.html" pinned="false" current-in-tab="false">
               <entry file="file://$USER_HOME$/Desktop/untitled folder 2/untitled folder 3/dotetsoftworks/public/ui/templates/m.drawer.system.html">
                 <provider selected="true" editor-type-id="text-editor">
-                  <state relative-caret-position="165">
-                    <caret line="11" column="28" selection-start-line="11" selection-start-column="28" selection-end-line="11" selection-end-column="28" />
+                  <state relative-caret-position="180">
+                    <caret line="12" column="34" selection-start-line="12" selection-start-column="34" selection-end-line="12" selection-end-column="34" />
                     <folding />
                   </state>
                 </provider>
@@ -81,27 +68,25 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="sign-in-cmp.ts" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/../des-all copy 2/client/src/+login-cmp/+sign-in-cmp/sign-in-cmp.ts">
+      <file leaf-file-name="drawer.component.ts" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/directives/drawer.component.ts">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="390">
-              <caret line="72" column="27" selection-start-line="72" selection-start-column="27" selection-end-line="72" selection-end-column="27" />
+            <state relative-caret-position="730">
+              <caret line="99" column="46" selection-start-line="99" selection-start-column="46" selection-end-line="99" selection-end-column="46" />
               <folding>
-                <element signature="e#0#76#0" expanded="true" />
-                <element signature="e#323#378#0" expanded="true" />
+                <element signature="e#0#67#0" expanded="true" />
+                <element signature="e#258#297#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="drawer.component.ts" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/directives/drawer.component.ts">
+      <file leaf-file-name="package.json" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/package.json">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1050">
-              <caret line="70" column="40" selection-start-line="70" selection-start-column="40" selection-end-line="70" selection-end-column="40" />
-              <folding>
-                <element signature="e#0#67#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="120">
+              <caret line="8" column="34" selection-start-line="8" selection-start-column="34" selection-end-line="8" selection-end-column="34" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -109,8 +94,8 @@
       <file leaf-file-name="drawer.component.css" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/directives/drawer.component.css">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="210">
-              <caret line="14" column="12" selection-start-line="14" selection-start-column="12" selection-end-line="14" selection-end-column="12" />
+            <state relative-caret-position="375">
+              <caret line="25" column="13" selection-start-line="25" selection-start-column="13" selection-end-line="25" selection-end-column="13" />
               <folding />
             </state>
           </provider>
@@ -119,8 +104,8 @@
       <file leaf-file-name="drawer.component.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/directives/drawer.component.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="120">
-              <caret line="8" column="0" selection-start-line="8" selection-start-column="0" selection-end-line="8" selection-end-column="0" />
+            <state relative-caret-position="150">
+              <caret line="10" column="62" selection-start-line="10" selection-start-column="62" selection-end-line="10" selection-end-column="62" />
               <folding />
             </state>
           </provider>
@@ -131,16 +116,6 @@
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="45">
               <caret line="3" column="29" selection-start-line="3" selection-start-column="29" selection-end-line="3" selection-end-column="29" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="m.drawer.system.html" pinned="false" current-in-tab="false">
-        <entry file="file://$USER_HOME$/Desktop/untitled folder 2/untitled folder 3/dotetsoftworks/public/ui/templates/m.drawer.system.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="0">
-              <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="14" selection-end-column="6" />
               <folding />
             </state>
           </provider>
@@ -164,16 +139,16 @@
         <option value="$PROJECT_DIR$/README.md" />
         <option value="$PROJECT_DIR$/src/drawer.ts" />
         <option value="$PROJECT_DIR$/demo/app.module.ts" />
-        <option value="$PROJECT_DIR$/package.json" />
         <option value="$PROJECT_DIR$/demo/system.config.js" />
         <option value="$PROJECT_DIR$/demo/app.component.ts" />
         <option value="$PROJECT_DIR$/demo/index.html" />
         <option value="$PROJECT_DIR$/src/directives/main.ts" />
         <option value="$PROJECT_DIR$/src/drawer.module.ts" />
         <option value="$PROJECT_DIR$/.gitignore" />
-        <option value="$PROJECT_DIR$/src/directives/drawer.component.css" />
+        <option value="$PROJECT_DIR$/package.json" />
         <option value="$PROJECT_DIR$/src/directives/drawer.component.html" />
         <option value="$PROJECT_DIR$/src/directives/drawer.component.ts" />
+        <option value="$PROJECT_DIR$/src/directives/drawer.component.css" />
       </list>
     </option>
   </component>
@@ -189,7 +164,7 @@
     <handled-path value="$PROJECT_DIR$/node_modules" />
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="6" />
+    <option name="x" value="2" />
     <option name="y" value="23" />
     <option name="width" value="1626" />
     <option name="height" value="872" />
@@ -364,15 +339,15 @@
       <option name="presentableId" value="Default" />
       <updated>1473623152407</updated>
       <workItem from="1473623161120" duration="8979000" />
-      <workItem from="1473665799881" duration="9744000" />
+      <workItem from="1473665799881" duration="17518000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="18723000" />
+    <option name="totallyTimeSpent" value="26497000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="6" y="23" width="1626" height="872" extended-state="0" />
+    <frame x="2" y="23" width="1626" height="872" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.2496925" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
@@ -406,7 +381,9 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="XDebuggerManager">
-    <breakpoint-manager />
+    <breakpoint-manager>
+      <option name="time" value="1" />
+    </breakpoint-manager>
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
@@ -442,6 +419,7 @@
           <caret line="1" column="16" selection-start-line="1" selection-start-column="16" selection-end-line="1" selection-end-column="16" />
           <folding>
             <element signature="e#0#67#0" expanded="true" />
+            <element signature="e#258#297#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -504,6 +482,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="90">
           <caret line="6" column="3" selection-start-line="6" selection-start-column="3" selection-end-line="6" selection-end-column="3" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -511,14 +490,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="45">
           <caret line="3" column="0" selection-start-line="3" selection-start-column="0" selection-end-line="3" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/package.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="120">
-          <caret line="8" column="37" selection-start-line="8" selection-start-column="37" selection-end-line="8" selection-end-column="37" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -635,6 +606,51 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/../des-all copy 2/client/src/+login-cmp/+sign-in-cmp/sign-in-cmp.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="928">
+          <caret line="72" column="27" selection-start-line="72" selection-start-column="27" selection-end-line="72" selection-end-column="27" />
+          <folding>
+            <element signature="e#0#76#0" expanded="false" />
+            <element signature="e#323#378#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/Desktop/untitled folder 2/untitled folder 3/dotetsoftworks/public/services/error.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="90">
+          <caret line="6" column="37" selection-start-line="6" selection-start-column="37" selection-end-line="6" selection-end-column="37" />
+          <folding>
+            <element signature="e#0#41#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/Desktop/untitled folder 2/untitled folder 3/dotetsoftworks/public/services/protocol.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/Desktop/untitled folder 2/untitled folder 3/dotetsoftworks/public/services/socket.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/Desktop/untitled folder 2/untitled folder 3/dotetsoftworks/public/services/store.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="675">
+          <caret line="46" column="33" selection-start-line="46" selection-start-column="33" selection-end-line="46" selection-end-column="33" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$USER_HOME$/Desktop/untitled folder 2/untitled folder 3/dotetsoftworks/public/ui/css/m.drawer.system.css">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="270">
@@ -643,21 +659,26 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/../des-all copy 2/client/src/+login-cmp/+sign-in-cmp/sign-in-cmp.ts">
+    <entry file="file://$USER_HOME$/Desktop/untitled folder 2/untitled folder 3/dotetsoftworks/public/ui/templates/m.drawer.system.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="390">
-          <caret line="72" column="27" selection-start-line="72" selection-start-column="27" selection-end-line="72" selection-end-column="27" />
-          <folding>
-            <element signature="e#0#76#0" expanded="true" />
-            <element signature="e#323#378#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="180">
+          <caret line="12" column="34" selection-start-line="12" selection-start-column="34" selection-end-line="12" selection-end-column="34" />
+          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$USER_HOME$/Desktop/untitled folder 2/untitled folder 3/dotetsoftworks/public/ui/templates/m.drawer.system.html">
+    <entry file="file://$USER_HOME$/Desktop/untitled folder 2/untitled folder 3/dotetsoftworks/public/ui/m.manager.ts">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="14" selection-end-column="6" />
+        <state relative-caret-position="465">
+          <caret line="73" column="29" selection-start-line="73" selection-start-column="29" selection-end-line="73" selection-end-column="29" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/package.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="120">
+          <caret line="8" column="34" selection-start-line="8" selection-start-column="34" selection-end-line="8" selection-end-column="34" />
           <folding />
         </state>
       </provider>
@@ -670,36 +691,29 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$USER_HOME$/Desktop/untitled folder 2/untitled folder 3/dotetsoftworks/public/ui/m.manager.ts">
+    <entry file="file://$PROJECT_DIR$/src/directives/drawer.component.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="130">
-          <caret line="138" column="44" selection-start-line="138" selection-start-column="44" selection-end-line="138" selection-end-column="44" />
+        <state relative-caret-position="150">
+          <caret line="10" column="62" selection-start-line="10" selection-start-column="62" selection-end-line="10" selection-end-column="62" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/directives/drawer.component.css">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="210">
-          <caret line="14" column="12" selection-start-line="14" selection-start-column="12" selection-end-line="14" selection-end-column="12" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/directives/drawer.component.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="120">
-          <caret line="8" column="0" selection-start-line="8" selection-start-column="0" selection-end-line="8" selection-end-column="0" />
+        <state relative-caret-position="375">
+          <caret line="25" column="13" selection-start-line="25" selection-start-column="13" selection-end-line="25" selection-end-column="13" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/directives/drawer.component.ts">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1050">
-          <caret line="70" column="40" selection-start-line="70" selection-start-column="40" selection-end-line="70" selection-end-column="40" />
+        <state relative-caret-position="730">
+          <caret line="99" column="46" selection-start-line="99" selection-start-column="46" selection-end-line="99" selection-end-column="46" />
           <folding>
             <element signature="e#0#67#0" expanded="true" />
+            <element signature="e#258#297#0" expanded="true" />
           </folding>
         </state>
       </provider>

@@ -1,6 +1,7 @@
 import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 import { DrawerService } from './drawer.service';
+import { Observable } from 'rxjs/Rx'; //TODO: this is not proper import for rxjs!
 import { Subject } from 'rxjs/Subject';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import 'rxjs/add/operator/filter';
@@ -9,6 +10,7 @@ import 'rxjs/add/operator/merge';
 import 'rxjs/add/operator/do';
 import 'rxjs/add/operator/mergeMap';
 import 'rxjs/add/operator/take';
+import 'rxjs/add/operator/combineLatest';
 
 @Component({
     moduleId: module.id,
@@ -24,9 +26,10 @@ export class NativeDrawer {
     private handlerRx$: Subject<Event> = new Subject<Event>();
     private drawerRx$: Subject<Event> = new Subject<Event>();
     private position$: BehaviorSubject<number> = new BehaviorSubject<number>(0);
+    private force$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
 
     //Position of start point
-    private start$: Subject<number> =
+    private start$: Observable<number> =
         this.handlerRx$
             .filter((ev: any) => ev.type === 'start')
             .map((ev: any) => ev.ev.center.x - ev.ev.target.getBoundingClientRect().left)
@@ -36,53 +39,60 @@ export class NativeDrawer {
                     .filter((ev: any) => ev.type === 'start')
                     .map((ev: any) => ev.ev.center.x - this.drawerWidth));
 
-    private end$: Subject<boolean> =
+    private end$: Observable<boolean> =
         this.handlerRx$
             .merge(this.drawerRx$)
             .filter((ev: any) => ev.type === 'end')
             .do((ev: any) => ev.ev.preventDefault())
+            .mergeMap(() => new BehaviorSubject((fn: any) =>
+                this.force$
+                    .last()
+                    .filter(e => e)
+                    .subscribe(fn)))
             .mergeMap(() => this.position$.take(1)
                 .map(pos => pos > this.drawerWidth/2));
 
     constructor(__drawerService: DrawerService, private __sanitizer: DomSanitizer){
 
-        //TODO: subscribe 1 ??
-        this.start$.subscribe(start => {
-            this.drawerRx$
+        Observable.combineLatest(
+            this.start$, this.drawerRx$
                 .merge(this.handlerRx$)
-                .filter((ev: any) => ev.type === 'move')
-                .map((ev: any) => {
-                    return {
-                        pos: ev.ev.center.x - start,
-                        isFinal: ev.ev.isFinal, //TODO: add velocity!!!
-                        lor: ev.ev.type
-                    };
-                })
-                //TODO: subscribe 2 ??
-                .subscribe(ev => {
-
-                    this.position$.next(ev.pos > this.drawerWidth ? this.drawerWidth : ev.pos < 0 ? 0 : ev.pos);
-                    if(ev.isFinal){
-                        if(ev.lor === 'panleft'){
-                            this.close();
-                        }
-
-                        if(ev.lor === 'panright'){
-                            this.open();
-                        }
+                .filter((ev: any) => ev.type === 'move'))
+            .map((val: any) => {
+                let [start, ev] = val;
+                return {
+                    pos: ev.ev.center.x - start,
+                    isFinal: ev.ev.isFinal,
+                    lor: ev.ev.type //TODO: add velocity
+                }
+            })
+            .subscribe(ev => {
+                //console.log(ev);
+                this.position$.next(ev.pos > this.drawerWidth ? this.drawerWidth : ev.pos < 0 ? 0 : ev.pos);
+                if(ev.isFinal){
+                    if(ev.lor === 'panleft'){
+                        this.close();
                     } else {
-
-                        //TODO: subscribe 3 ??
-                        this.end$.subscribe(open => {
-                            if(open){
-                                this.open();
-                            } else {
-                                this.close();
-                            }
-                        })
+                        this.open();
                     }
-                });
-        });
+                    this.force$.next(false);
+                } else {
+                    this.force$.next(true);
+                }
+            });
+
+        //TODO: is invoked also if isFinal true need to be changed
+        this.end$
+            .subscribe(bigger => {
+                //console.log(bigger);
+                if(bigger){
+                    this.open();
+                } else {
+                    this.close();
+                }
+                this.force$.next(false);
+            });
+
 
     }
 
@@ -96,5 +106,10 @@ export class NativeDrawer {
 
     styleSanitize(val) {
         return this.__sanitizer.bypassSecurityTrustStyle('translate(' + val + 'px, 0) translateZ(0)');
+    }
+
+    getOpacity(pos){
+        let op: number = (pos / this.drawerWidth).toFixed(2);
+        return op < 1 ? op : 1;
     }
 }
