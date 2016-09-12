@@ -42,3 +42,4 @@ demo/**/*.js
 demo/**/*.js.map
 src/**/*.js
 src/**/*js.map
+.idea/workspace.xml
