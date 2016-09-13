@@ -71,7 +71,6 @@ export class NativeDrawer implements OnDestroy{
     styleSanitize(val) {
         return this.__sanitizer.bypassSecurityTrustStyle('translate(' + val + 'px, 0) translateZ(0)');
     }
-
     //noinspection JSMethodCanBeStatic
     getOpacity(pos){
         let op: string = pos.toFixed(2);

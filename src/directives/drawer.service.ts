@@ -21,12 +21,13 @@ export class DrawerService {
     private _handler$: Subject<Event> = new Subject<Event>();
     private _position$: BehaviorSubject<number> = new BehaviorSubject<number>(0);
     private _lock$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+    private _disable$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
     //If drawer should be forced to open or close, only used for missed isFinal events during panend
     private _force$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
     //If element is currently touched
     private _touched$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
 
-    private _mainEventStream$ =
+    private _mainEventStream$: any =
         this._lock$.switchMap(locked => locked ? Observable.never() : this._handler$);
 
     constructor(){
@@ -91,10 +92,6 @@ export class DrawerService {
             });
     }
 
-    getMove(ev: Event){
-        this._handler$.next(ev);
-    }
-
     /* Cloaking stream for dealing with drawer animation during window resizing */
     get resizeCloak$(){
         return this._width$
@@ -105,7 +102,9 @@ export class DrawerService {
     }
 
     get position$(){
-        return this._position$;
+        return this._position$
+            .mergeMap(pos => this._disable$
+                .map(d => d ? 0 : pos));
     }
 
     get width$(){
@@ -130,6 +129,10 @@ export class DrawerService {
         } else {
             this._position$.next(val);
         }
+    }
+
+    getMove(ev: Event){
+        this._handler$.next(ev);
     }
 
     open(isLockable?: boolean){
@@ -157,20 +160,11 @@ export class DrawerService {
             });
     }
 
-    disable(){
-
+    disable(isDisabled?: boolean){
+        this._disable$.next(isDisabled === true || typeof isDisabled === "undefined");
     }
 
-    lock(isLocked: boolean){
-        this._lock$.next(isLocked);
+    lock(isLocked?: boolean){
+        this._lock$.next(isLocked === true || typeof isLocked === "undefined");
     }
-
-    instantOpen(){
-        //Open without animation
-    }
-
-    instantClose(){
-        //Close without animation
-    }
-
 }
