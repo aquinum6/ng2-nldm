@@ -108,7 +108,8 @@ export class DrawerService {
     }
 
     get width$(){
-        return this._width$;
+        return new Observable<number>((fn: any) =>
+            this._width$.subscribe(fn));
     }
 
     set width(val: number){
@@ -118,7 +119,8 @@ export class DrawerService {
     }
 
     get onTouch$(){
-        return this._touched$;
+        return new Observable<boolean>((fn: any) =>
+            this._touched$.subscribe(fn));
     }
 
     private _OpenClose(val: number, isLockable?: boolean){

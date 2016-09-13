@@ -39,6 +39,16 @@ export class NativeDrawer implements OnDestroy{
             this.__drawerService.width = _width;
         }
     }
+    @Input() set disabled(_disable: boolean | string | number){
+        this.__drawerService.disable(
+            _disable === true || _disable === 'true' || _disable === 1 || _disable === '1'
+        );
+    }
+    @Input() set locked(_lock: boolean | string | number){
+        this.__drawerService.lock(
+            _lock === true || _lock === 'true' || _lock === 1 || _lock === '1'
+        );
+    }
 
     @HostListener('window:resize', ['$event'])
     onResize (event) {
@@ -48,9 +58,9 @@ export class NativeDrawer implements OnDestroy{
     //TODO: make sure that only one instance of drawer is active at given time
     //TODO: window.innerWidth might be not working properly with Angular Universal
     private _window$: BehaviorSubject<number> = new BehaviorSubject<number>(window.innerWidth);
-    private _width$: BehaviorSubject<number>;
-    private _onTouch$: BehaviorSubject<boolean>;
-    private _position$: BehaviorSubject<number>;
+    private _width$: Observable<number>;
+    private _onTouch$: Observable<boolean>;
+    private _position$: Observable<number>;
     private _cloak$: Observable<boolean>;
 
     constructor(private __drawerService: DrawerService, private __sanitizer: DomSanitizer){
