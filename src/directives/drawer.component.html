@@ -5,16 +5,11 @@
          (panleft)="_handler$.next({type:'move',ev:$event})"
          (panright)="_handler$.next({type:'move',ev:$event})"
          (panend)="_handler$.next({type:'end',ev:$event})"
-         [style.transform]="styleSanitize(_position$ | async)"></div>
-
-    <div class="nldm-drawer"
-         (panstart)="_drawer$.next({type:'start',ev:$event})"
-         (panleft)="_drawer$.next({type:'move',ev:$event})"
-         (panright)="_drawer$.next({type:'move',ev:$event})"
-         (panend)="_drawer$.next({type:'end',ev:$event})"
-         [style.transform]="styleSanitize((_position$ | async) - (_width$ | async))"
-         [style.width]="(_width$ | async) + 'px'">
-        <ng-content></ng-content>
+         [style.width]="((_width$ | async) + 10 ) + 'px'"
+         [style.transform]="styleSanitize((_position$ | async) - (_width$ | async))">
+        <div class="nldm-drawer">
+            <ng-content></ng-content>
+        </div>
     </div>
 
     <div class="nldm-overall"

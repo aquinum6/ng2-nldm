@@ -10,6 +10,7 @@ import 'rxjs/add/operator/mergeMap';
 import 'rxjs/add/operator/take';
 import 'rxjs/add/operator/combineLatest';
 import 'rxjs/add/operator/delay';
+import 'rxjs/add/operator/debounceTime';
 
 @Injectable()
 export class DrawerService {
@@ -19,25 +20,18 @@ export class DrawerService {
     private _touched$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
 
     private _handlerRx$: Subject<Event> = new Subject<Event>();
-    private _drawerRx$: Subject<Event> = new Subject<Event>();
     private _position$: BehaviorSubject<number> = new BehaviorSubject<number>(0);
     private _force$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
 
-    //Gather starting point of touch
+    //Get reference point
     private _start$: Observable<number> =
         this._handlerRx$
             .filter((ev: any) => ev.type === 'start')
-            .map((ev: any) => ev.ev.center.x - ev.ev.target.getBoundingClientRect().left)
-            .merge(
-                //Drawer Event start stream
-                this._drawerRx$
-                    .filter((ev: any) => ev.type === 'start')
-                    .map((ev: any) => ev.ev.center.x - this._drawerWidth));
+            .map((ev: any) => ev.ev.center.x - ev.ev.target.getBoundingClientRect().left - this._drawerWidth);
 
     //Event triggered when touch finished and isFinal was not triggered, returns true if half of a drawer is still visible
     private _end$: Observable<boolean> =
         this._handlerRx$
-            .merge(this._drawerRx$)
             .filter((ev: any) => ev.type === 'end')
             .do((ev) => this._touched$.next(false))
             .do((ev: any) => ev.ev.preventDefault())
@@ -51,9 +45,11 @@ export class DrawerService {
 
     constructor(){
 //TODO: deactivate "second" event. example: if movement is done by handler deactivate drawer. Device can catch second event during motion and it will broke movement
+
+
         Observable.combineLatest(
-            this._start$, this._drawerRx$
-                .merge(this._handlerRx$)
+            this._start$,
+            this._handlerRx$
                 .filter((ev: any) => ev.type === 'move'))
             .do((ev) => this._touched$.next(true))
             .map((val: any) => {
@@ -61,6 +57,7 @@ export class DrawerService {
                 return {
                     pos: ev.ev.center.x - start,
                     isFinal: ev.ev.isFinal,
+                    ev: ev.ev,
                     type: ev.ev.type //TODO: add velocity
                 }
             })
@@ -100,10 +97,6 @@ export class DrawerService {
 
     get handler$(){
         return this._handlerRx$;
-    }
-
-    get drawer$(){
-        return this._drawerRx$
     }
 
     get width$(){

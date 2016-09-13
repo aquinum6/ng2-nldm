@@ -61,7 +61,6 @@ export class NativeDrawer implements OnDestroy{
     private _active$: BehaviorSubject<boolean>;
 
     private _handler$: Subject<Event>;
-    private _drawer$: Subject<Event>;
     private _position$: BehaviorSubject<number>;
 
     private _cloak$: Observable<boolean>;
@@ -69,7 +68,6 @@ export class NativeDrawer implements OnDestroy{
     constructor(private __drawerService: DrawerService, private __sanitizer: DomSanitizer){
 
         this._handler$ = __drawerService.handler$;
-        this._drawer$ = __drawerService.drawer$;
         this._position$ = __drawerService.position$;
 
         this._width$ = __drawerService.width$;
