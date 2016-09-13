@@ -65,7 +65,7 @@ export class NativeDrawer implements OnDestroy{
     }
 
     overallClose(){
-        this.__drawerService.close();
+        this.__drawerService.close(true);
     }
 
     styleSanitize(val) {

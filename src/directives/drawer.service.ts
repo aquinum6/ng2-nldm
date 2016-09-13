@@ -11,6 +11,7 @@ import 'rxjs/add/operator/take';
 import 'rxjs/add/operator/combineLatest';
 import 'rxjs/add/operator/delay';
 import 'rxjs/add/operator/debounceTime';
+import 'rxjs/add/operator/switchMap';
 
 @Injectable()
 export class DrawerService {
@@ -19,20 +20,24 @@ export class DrawerService {
     private _width$: BehaviorSubject<number> = new BehaviorSubject<number>(this._width);
     private _handler$: Subject<Event> = new Subject<Event>();
     private _position$: BehaviorSubject<number> = new BehaviorSubject<number>(0);
+    private _lock$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
     //If drawer should be forced to open or close, only used for missed isFinal events during panend
     private _force$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
     //If element is currently touched
     private _touched$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
 
+    private _mainEventStream$ =
+        this._lock$.switchMap(locked => locked ? Observable.never() : this._handler$);
+
     constructor(){
         //Get reference point
         let _start$: Observable<number> =
-            this._handler$
+            this._mainEventStream$
                 .filter((ev: any) => ev.type === 'panstart')
                 .map((ev: any) => ev.center.x - ev.target.getBoundingClientRect().left - this._width);
         //Event triggered when touch finished and isFinal was not triggered, returns true if half of a drawer is still visible
         let _end$: Observable<boolean> =
-            this._handler$
+            this._mainEventStream$
                 .filter((ev: any) => ev.type === 'panend')
                 .do((ev: any) => {
                     this._touched$.next(false);
@@ -48,7 +53,7 @@ export class DrawerService {
 
         Observable.combineLatest(
             _start$,
-            this._handler$
+            this._mainEventStream$
                 .filter((ev: any) => ev.type === 'panleft' || ev.type === 'panright'))
             .do((ev) => this._touched$.next(true))
             .map((val: any) => {
@@ -86,7 +91,7 @@ export class DrawerService {
             });
     }
 
-    getMove(ev){
+    getMove(ev: Event){
         this._handler$.next(ev);
     }
 
@@ -117,12 +122,22 @@ export class DrawerService {
         return this._touched$;
     }
 
-    open(){
-        this._position$.next(this._width);
+    private _OpenClose(val: number, isLockable?: boolean){
+        if(isLockable){
+            this._lock$
+                .filter(e => !e)
+                .subscribe(() => this._position$.next(val));
+        } else {
+            this._position$.next(val);
+        }
     }
 
-    close(){
-        this._position$.next(0);
+    open(isLockable?: boolean){
+        this._OpenClose(this._width, isLockable);
+    }
+
+    close(isLockable?: boolean){
+        this._OpenClose(0, isLockable);
     }
 
     reset(){
@@ -130,8 +145,8 @@ export class DrawerService {
         this._width = 300;
         this._width$.next(300);
     }
-
-    toggle(stream){
+    /* Gets any event stream and perform toggle action */
+    toggle(stream: Subject<any>){
         stream
             .mergeMap(() => this._position$
                 .take(1)
@@ -146,8 +161,8 @@ export class DrawerService {
 
     }
 
-    lock(){
-        //Lock in position, should be able to move programatically but not by events
+    lock(isLocked: boolean){
+        this._lock$.next(isLocked);
     }
 
     instantOpen(){
