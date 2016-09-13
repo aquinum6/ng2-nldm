@@ -24,31 +24,30 @@ export class DrawerService {
     //If element is currently touched
     private _touched$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
 
-    //Get reference point
-    private _start$: Observable<number> =
-        this._handler$
-            .filter((ev: any) => ev.type === 'panstart')
-            .map((ev: any) => ev.center.x - ev.target.getBoundingClientRect().left - this._width);
-
-    //Event triggered when touch finished and isFinal was not triggered, returns true if half of a drawer is still visible
-    private _end$: Observable<boolean> =
-        this._handler$
-            .filter((ev: any) => ev.type === 'panend')
-            .do((ev: any) => {
-                this._touched$.next(false);
-                ev.preventDefault();
-            })
-            .mergeMap(() => new BehaviorSubject((fn: any) =>
-                this._force$
-                    .last()
-                    .filter(e => e)
-                    .subscribe(fn)))
-            .mergeMap(() => this._position$.take(1)
-                .map(pos => pos > this._width/2));
-
     constructor(){
+        //Get reference point
+        let _start$: Observable<number> =
+            this._handler$
+                .filter((ev: any) => ev.type === 'panstart')
+                .map((ev: any) => ev.center.x - ev.target.getBoundingClientRect().left - this._width);
+        //Event triggered when touch finished and isFinal was not triggered, returns true if half of a drawer is still visible
+        let _end$: Observable<boolean> =
+            this._handler$
+                .filter((ev: any) => ev.type === 'panend')
+                .do((ev: any) => {
+                    this._touched$.next(false);
+                    ev.preventDefault();
+                })
+                .mergeMap(() => new BehaviorSubject((fn: any) =>
+                    this._force$
+                        .last()
+                        .filter(e => e)
+                        .subscribe(fn)))
+                .mergeMap(() => this._position$.take(1)
+                    .map(pos => pos > this._width/2));
+
         Observable.combineLatest(
-            this._start$,
+            _start$,
             this._handler$
                 .filter((ev: any) => ev.type === 'panleft' || ev.type === 'panright'))
             .do((ev) => this._touched$.next(true))
@@ -76,7 +75,7 @@ export class DrawerService {
             });
 
         //Handle events that have ended but isFinal was not triggered
-        this._end$
+        _end$
             .subscribe(bigger => {
                 if(bigger){
                     this.open();
