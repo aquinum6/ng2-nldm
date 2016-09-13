@@ -27,14 +27,14 @@
     right: 0;
     bottom: 0;
     background-color: rgba(0,0,0,.63);
-    z-index: 9998;
+    z-index: 9999;
     transition: opacity .3s;
 }
 
-.nldm-pane.inmotion .nldm-overall{
+.nldm-pane.anim-off .nldm-overall{
     transition: opacity 0s;
 }
 
-.nldm-pane.inmotion .nldm-drawer,.nldm-pane.inmotion .nldm-handler{
+.nldm-pane.anim-off .nldm-handler{
     transition: transform 0s;
 }
