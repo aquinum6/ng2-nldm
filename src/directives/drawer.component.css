@@ -5,22 +5,20 @@
     top: 0;
     left: 0;
     height: 100%;
-    width: 10px;
+    width: 310px;
     z-index: 10000;
     transition: transform .3s;
+    transform: translate(-300px, 0) translateZ(0);
 }
 
 .nldm-drawer{
     overflow-y: auto;
     overflow-x: hidden;
-    position: fixed;
+    position: absolute;
     top: 0;
     left: 0;
     height: 100%;
     width: 300px;
-    transform: translate(-100%, 0) translateZ(0);
-    z-index: 9999;
-    transition: transform .3s;
 }
 .nldm-overall{
     position: fixed;
@@ -29,14 +27,14 @@
     right: 0;
     bottom: 0;
     background-color: rgba(0,0,0,.63);
-    z-index: 9998;
+    z-index: 9999;
     transition: opacity .3s;
 }
 
-.nldm-pane.inmotion .nldm-overall{
+.nldm-pane.anim-off .nldm-overall{
     transition: opacity 0s;
 }
 
-.nldm-pane.inmotion .nldm-drawer,.nldm-pane.inmotion .nldm-handler{
+.nldm-pane.anim-off .nldm-handler{
     transition: transform 0s;
 }

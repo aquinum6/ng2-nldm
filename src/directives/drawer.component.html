@@ -1,24 +1,20 @@
-<div class="nldm-pane" [class.inmotion]="(_active$ | async) || (_cloak$ | async)">
+<div class="nldm-pane" [class.anim-off]="(_onTouch$ | async) || (_cloak$ | async)">
 
     <div class="nldm-handler"
-         (panstart)="_handler$.next({type:'start',ev:$event})"
-         (panleft)="_handler$.next({type:'move',ev:$event})"
-         (panright)="_handler$.next({type:'move',ev:$event})"
-         (panend)="_handler$.next({type:'end',ev:$event})"
-         [style.transform]="styleSanitize(_position$ | async)"></div>
-
-    <div class="nldm-drawer"
-         (panstart)="_drawer$.next({type:'start',ev:$event})"
-         (panleft)="_drawer$.next({type:'move',ev:$event})"
-         (panright)="_drawer$.next({type:'move',ev:$event})"
-         (panend)="_drawer$.next({type:'end',ev:$event})"
-         [style.transform]="styleSanitize((_position$ | async) - (_width$ | async))"
-         [style.width]="(_width$ | async) + 'px'">
-        <ng-content></ng-content>
+         (panstart)="getMove($event)"
+         (panleft)="getMove($event)"
+         (panright)="getMove($event)"
+         (panend)="getMove($event)"
+         [style.width]="((_width$ | async) + 10 ) + 'px'"
+         [style.transform]="styleSanitize((_position$ | async) - (_width$ | async))">
+        <div class="nldm-drawer"
+             [style.width]="(_width$ | async) + 'px'">
+            <ng-content></ng-content>
+        </div>
     </div>
 
     <div class="nldm-overall"
-         (click)="__drawerService.close()"
+         (click)="overallClose()"
          [@overall]="'in'"
          [style.opacity]="getOpacity((_position$ | async) / (_width$ | async))"
          *ngIf="(_position$ | async) > 0"></div>
