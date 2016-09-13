@@ -127,11 +127,20 @@ export class DrawerService {
     }
 
     reset(){
-        //Reset all information in instance
+        this.close();
+        this._width = 300;
+        this._width$.next(300);
     }
 
-    toggle(){
-        //Toggle between open and close (really good for burger button)
+    toggle(stream){
+        stream
+            .mergeMap(() => this._position$
+                .take(1)
+                .map(pos => pos === 0))
+            .subscribe(e => {
+                if(e) this.open();
+                else this.close();
+            });
     }
 
     disable(){
