@@ -65,16 +65,15 @@ export class SomethingComponent {
 
 ### Methods and properties
 
-* get **resizeCloak$** - Observable<boolean>; it will let you know when resize event is happening. Used by component to hide animations during resize.
-* get **position$** - Observable<number>; returns current position of drawer (0 - closed, width - open).
-* get **width$** - Observable<number>; returns width of drawer.
-* get **onTouch$** - Observable<boolean>; returns when drawers is touched/clicked (basic movement behaviour).
-* set **width(number)** - let you set new size of drawer.
-
-* **open(isLockable?: boolean)** - opens drawer. Can be set as lockable, and if so it won't react if lock is set on drawer.
-* **close(isLockable?: boolean)** - close drawer. Can be set as lockable, and if so it won't react if lock is set on drawer.
-* **reset()** - reset all settings to default.
-* **toggle(stream: Subject<any>)** - create toggle action for drawer. Good for use with burger menu
+* `get resizeCloak$(): Observable<boolean>`; it will let you know when resize event is happening. Used by component to hide animations during resize.
+* `get position$(): Observable<number>`; returns current position of drawer (0 - closed, width - open).
+* `get width$(): Observable<number>`; returns width of drawer.
+* `get onTouch$(): Observable<boolean>`; returns when drawers is touched/clicked (basic movement behaviour).
+* `set width(width: number): void` - let you set new size of drawer.
+* `open(isLockable?: boolean): void` - opens drawer. Can be set as lockable, and if so it won't react if lock is set on drawer.
+* `close(isLockable?: boolean): void` - close drawer. Can be set as lockable, and if so it won't react if lock is set on drawer.
+* `reset(): void` - reset all settings to default.
+* `toggle(stream: Subject<any>): void` - create toggle action for drawer. Good for use with burger menu
 ```typescript
 @Component({
     selector: 'something',
@@ -90,8 +89,8 @@ export class AppComponent {
     }
 }
 ```
-* **disable(disabled?: boolean)** - same as for component property.
-* **lock(locked?: boolean)** - same as for component property.
+* `disable(disabled?: boolean): void` - same as for component property.
+* `lock(locked?: boolean): void` - same as for component property.
 
 ## What next
 1. Control number of instances
