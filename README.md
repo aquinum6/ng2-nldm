@@ -95,8 +95,7 @@ export class AppComponent {
 ## What next
 1. Control number of instances
 2. Replace window.innerWidth for something more correct with ng2
-3. Replace import { Observable } from 'rxjs/Rx' to proper import
-4. Create nice demo
-5. Create bundle
-6. Add burger button to looks like native and works with drawer straight from the box
+3. Create nice demo
+4. Create bundle
+5. Add burger button to looks like native and works with drawer straight from the box
 
