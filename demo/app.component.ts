@@ -17,7 +17,7 @@ import { Subject } from 'rxjs/Subject';
 })
 export class AppComponent {
 
-    private _toggleButton$: Subject<Event> = new Subject<Event>();
+    _toggleButton$: Subject<Event> = new Subject<Event>();
 
     constructor(private dW: DrawerService){
 

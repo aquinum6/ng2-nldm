@@ -25,7 +25,6 @@ const PAN_RIGHT: string = 'panright';
 //noinspection SpellCheckingInspection
 const PAN_END: string = 'panend';
 
-
 @Injectable()
 export class DrawerService {
 
@@ -111,7 +110,7 @@ export class DrawerService {
     }
 
     /* Cloaking stream for dealing with drawer animation during window resizing */
-    get resizeCloak$(){
+    get resizeCloak$(): Observable<boolean>{
         return this._width$
             .map(() => true)
             .merge(this._width$
@@ -119,13 +118,13 @@ export class DrawerService {
                 .map(() => false));
     }
 
-    get position$(){
+    get position$(): Observable<number>{
         return this._position$
             .mergeMap(pos => this._disable$
                 .map(d => d ? 0 : pos));
     }
 
-    get width$(){
+    get width$(): Observable<number>{
         return new Observable<number>((fn: any) =>
             this._width$.subscribe(fn));
     }
@@ -136,12 +135,12 @@ export class DrawerService {
         this._width$.next(val);
     }
 
-    get onTouch$(){
+    get onTouch$(): Observable<boolean>{
         return new Observable<boolean>((fn: any) =>
             this._touched$.subscribe(fn));
     }
 
-    private _OpenClose(val: number, isLockable?: boolean){
+    private _OpenClose(val: number, isLockable?: boolean): void{
         if(isLockable){
             this._lock$
                 .filter(e => !e)
@@ -151,25 +150,25 @@ export class DrawerService {
         }
     }
 
-    getMove(ev: Event){
+    getMove(ev: Event): void{
         this._handler$.next(ev);
     }
 
-    open(isLockable?: boolean){
+    open(isLockable?: boolean): void{
         this._OpenClose(this._width, isLockable);
     }
 
-    close(isLockable?: boolean){
+    close(isLockable?: boolean): void{
         this._OpenClose(0, isLockable);
     }
 
-    reset(){
+    reset(): void{
         this.close();
         this._width = 300;
         this._width$.next(300);
     }
     /* Gets any event stream and perform toggle action */
-    toggle(stream: Subject<any>){
+    toggle(stream: Subject<any>): void{
         stream
             .mergeMap(() => this._position$
                 .take(1)
@@ -180,11 +179,11 @@ export class DrawerService {
             });
     }
 
-    disable(isDisabled?: boolean){
+    disable(isDisabled?: boolean): void{
         this._disable$.next(isDisabled === true || typeof isDisabled === "undefined");
     }
 
-    lock(isLocked?: boolean){
+    lock(isLocked?: boolean): void{
         this._lock$.next(isLocked === true || typeof isLocked === "undefined");
     }
 }

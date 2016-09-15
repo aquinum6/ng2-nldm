@@ -1,5 +1,5 @@
 import { Component, ChangeDetectionStrategy, trigger, style, transition, animate, Input, OnDestroy, HostListener } from '@angular/core';
-import { DomSanitizer } from '@angular/platform-browser';
+import { DomSanitizer, SafeStyle } from '@angular/platform-browser';
 import { DrawerService } from './drawer.service';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { Observable } from 'rxjs/Observable';
@@ -51,17 +51,17 @@ export class NativeDrawer implements OnDestroy{
     }
 
     @HostListener('window:resize', ['$event'])
-    onResize (event) {
+    onResize (event:any): void {
         this._window$.next(event.target.innerWidth);
     }
 
     //TODO: make sure that only one instance of drawer is active at given time
     //TODO: window.innerWidth might be not working properly with Angular Universal
-    private _window$: BehaviorSubject<number> = new BehaviorSubject<number>(window.innerWidth);
-    private _width$: Observable<number>;
-    private _onTouch$: Observable<boolean>;
-    private _position$: Observable<number>;
-    private _cloak$: Observable<boolean>;
+    _window$: BehaviorSubject<number> = new BehaviorSubject<number>(window.innerWidth);
+    _width$: Observable<number>;
+    _onTouch$: Observable<boolean>;
+    _position$: Observable<number>;
+    _cloak$: Observable<boolean>;
 
     constructor(private __drawerService: DrawerService, private __sanitizer: DomSanitizer){
         this._position$ = __drawerService.position$;
@@ -70,19 +70,19 @@ export class NativeDrawer implements OnDestroy{
         this._cloak$ = __drawerService.resizeCloak$;
     }
 
-    getMove(ev){
+    getMove(ev: any): void{
         this.__drawerService.getMove(ev);
     }
 
-    overallClose(){
+    overallClose(): void{
         this.__drawerService.close(true);
     }
 
-    styleSanitize(val) {
+    styleSanitize(val: any): SafeStyle {
         return this.__sanitizer.bypassSecurityTrustStyle('translate(' + val + 'px, 0) translateZ(0)');
     }
     //noinspection JSMethodCanBeStatic
-    getOpacity(pos){
+    getOpacity(pos: number): string{
         let op: string = pos.toFixed(2);
         return parseFloat(op) < 1 ? op : '1';
     }
