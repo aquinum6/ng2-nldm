@@ -2,7 +2,7 @@
 Angular 2 Native Like Drawer Menu
 ## How to use
 
-1. First import DrawerModule to your app.
+* First import DrawerModule to your app.
 
 ```typescript
 import { NgModule }      from '@angular/core';
@@ -19,7 +19,7 @@ import { DrawerModule } from '../src';
 export class AppModule { }
 ```
 
-2. Then you can use native-drawer tag to create instance of drawer.
+* Then you can use native-drawer tag to create instance of drawer.
 
 ```html
 <native-drawer>

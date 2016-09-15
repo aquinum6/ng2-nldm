@@ -1,5 +1,6 @@
-/* move css to scss */
+/* move css to SCSS */
 
+/*noinspection SpellCheckingInspection*/
 .nldm-handler{
     position: fixed;
     top: 0;
@@ -11,6 +12,7 @@
     transform: translate(-300px, 0) translateZ(0);
 }
 
+/*noinspection SpellCheckingInspection*/
 .nldm-drawer{
     overflow-y: auto;
     overflow-x: hidden;
@@ -20,6 +22,8 @@
     height: 100%;
     width: 300px;
 }
+
+/*noinspection SpellCheckingInspection*/
 .nldm-overall{
     position: fixed;
     top: 0;
@@ -31,10 +35,12 @@
     transition: opacity .3s;
 }
 
+/*noinspection SpellCheckingInspection*/
 .nldm-pane.anim-off .nldm-overall{
     transition: opacity 0s;
 }
 
+/*noinspection SpellCheckingInspection*/
 .nldm-pane.anim-off .nldm-handler{
     transition: transform 0s;
 }
